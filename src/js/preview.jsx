@@ -22,51 +22,58 @@ module.exports = React.createClass({
             <div className="preview">
                 <header>
                     <div className="sender">
-                        <div className="company">Company ltd.</div>
-                        <div className="name">John Doe</div>
-                        <div className="address">Demotie 123</div>
-                        <div className="city">12345 JYVÄSKYLÄ</div>
+                        <div className="company">Koodilehto Osk.</div>
+                        <div className="name">Kulukorvauslomake</div>
                     </div>
                     <div className="extra">
-                        <div className="invoice">INVOICE</div>
                         <div className="date">{today}</div>
-                        <div className="logo">LOGO</div>
                     </div>
                 </header>
                 <article>
                     <div className="info">
-                        <div className="recipient">
-                            <div className="company">{data.recipient.company}</div>
-                            <div className="name">{data.recipient.name}</div>
-                            <div className="address">{data.recipient.address}</div>
-                            <div className="city">{data.recipient.postalCode} {data.recipient.city}</div>
-                        </div>
+                        <div className="description">{data.description}</div>
                     </div>
                     <table className="services">
                         <thead>
                             <tr>
-                                <th>Service</th>
-                                <th>Tax free</th>
-                                <th>Tax (%)</th>
-                                <th>Tax</th>
-                                <th>Total</th>
+                                <th>Korvattava (kuitit liitteenä)</th>
+                                <th>Määrä</th>
+                                <th>Yksikköhinta</th>
+                                <th>Hinta</th>
                             </tr>
                         </thead>
                         <tbody>
                         {services.map(function(service, i) {
                             return <tr key={i}>
                                 <td>{service.name}</td>
-                                <td>{toFixed(service.cost)}</td>
-                                <td>{toFixed(service.vat)}</td>
-                                <td>{toFixed(service.vatCost)}</td>
+                                <td>{service.amount}</td>
+                                <td>{service.cost}</td>
                                 <td>{toFixed(service.total)}</td>
                             </tr>;
                         })}
                         </tbody>
                     </table>
+                    <div className="info">
+                        <div className="recipient">
+                            <div className="company">{data.recipient.company}</div>
+                            <div className="name">{data.recipient.name}</div>
+                            <div className="address">{data.recipient.address}</div>
+                            <div className="city">{data.recipient.postalCode} {data.recipient.city}</div>
+                            <div className="phone">{data.recipient.phone}</div>
+                            <div className="bankAccount">{data.recipient.bankAccount}</div>
+                        </div>
+                    </div>
                 </article>
                 <footer>
-                    <div className="companyDetails"></div>
+                    <div className="signing">
+                        <div className="place">{data.place} {today}</div>
+                        <div className="note">Tämä asiakirja on allekirjoitettu elektronisesti.</div>
+                    </div>
+                    <div className="approval">
+                        <h3>Osuuskunta täyttää</h3>
+                        <div className="paid">Maksettu</div>
+                        <div className="approved">Hyväksytty</div>
+                    </div>
                 </footer>
             </div>
         );
@@ -76,32 +83,27 @@ module.exports = React.createClass({
 function calculateServices(o) {
     var services = o.initial || [];
 
-    // calculate vats
     services = services.map(function(service) {
         var cost = service.cost || 0;
-        var vatCost = o.vat * cost;
 
         return {
             name: service.name,
+            amount: service.amount,
             cost: cost,
-            vat: o.vat * 100,
-            vatCost: vatCost,
-            total: vatCost + cost
+            total: service.amount + cost
         };
     });
 
     // calculate totals
     var total = sum(services, 'total');
     services.push({
-        name: 'Total',
+        name: 'Yhteensä',
         cost: sum(services, 'cost'),
-        vat: o.vat * 100,
-        vatCost: sum(services, 'vatCost'),
         total: total,
     });
 
     services.push({
-        name: 'Total',
+        name: 'Yhteensä',
         total: total
     });
 

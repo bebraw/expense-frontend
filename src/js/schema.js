@@ -3,45 +3,61 @@
 module.exports = {
     type: 'object',
     properties: {
+        description: {
+            title: 'Kuvaus',
+            type: 'string'
+        },
+        place: {
+            title: 'Paikka',
+            type: 'string'
+        },
         recipient: {
-            title: 'Recipient',
+            title: 'Vastaanottaja',
             type: 'object',
             properties: {
-                company: {
-                    title: 'Company',
-                    type: 'string'
-                },
                 name: {
-                    title: 'Name',
+                    title: 'Nimi',
                     type: 'string'
                 },
                 address: {
-                    title: 'Address',
+                    title: 'Osoite',
                     type: 'string'
                 },
                 city: {
-                    title: 'City',
+                    title: 'Kaupunki',
                     type: 'string'
                 },
                 postalCode: {
-                    title: 'Postal Code',
+                    title: 'Postinumero',
+                    type: 'string'
+                },
+                phone: {
+                    title: 'Puhelinnumero',
+                    type: 'string'
+                },
+                bankAccount: {
+                    title: 'Pankkitili',
                     type: 'string'
                 }
             }
         },
         services: {
-            title: 'Services',
+            title: 'Korvattavat',
             type: 'array',
             minItems: 1,
             items: {
                 type: 'object',
                 properties: {
                     name: {
-                        title: 'Service',
+                        title: 'Korvattava',
                         type: 'string'
                     },
+                    amount: {
+                        title: 'Määrä',
+                        type: 'number'
+                    },
                     cost: {
-                        title: 'Cost',
+                        title: 'Hinta',
                         type: 'number'
                     }
                 }
