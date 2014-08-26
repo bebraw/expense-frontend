@@ -1,7 +1,7 @@
 {
-  "name": "invoice-frontend",
+  "name": "expense-frontend",
   "version": "0.2.0",
-  "description": "Invoicing application",
+  "description": "Expense application",
   "dependencies": {
     "moment": "2.7.0",
     "plexus-form": "0.0.13",
