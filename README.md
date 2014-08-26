@@ -1,6 +1,6 @@
-# invoice-frontend
+# expense-frontend
 
-Invoicing application
+Expense application
 
 ## Prerequisites
 
