@@ -17,9 +17,8 @@ module.exports  = React.createClass({
     mixins: [LocalStorageMixin],
 
     getInitialState: function() {
-        // TODO: initial language could be moved to props
         return {
-            schema: translator.translate(i18n.en, schema),
+            schema: translator.translate(i18n[this.props.language], schema),
             values: {}
         };
     },
