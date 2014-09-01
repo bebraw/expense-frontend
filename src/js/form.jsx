@@ -4,18 +4,22 @@ var LocalStorageMixin = require('react-localstorage');
 var validate = require('plexus-validate');
 var Form = require('plexus-form');
 
+var i18n = require('./i18n');
 var schema = require('./schema');
+var translator = require('./translator');
+
 var LanguageSelector = require('./language_selector.jsx');
 var Preview = require('./preview.jsx');
 
 
 module.exports  = React.createClass({
-    displayName: 'FormDemoPage',
+    displayName: 'Form',
     mixins: [LocalStorageMixin],
 
     getInitialState: function() {
+        // TODO: initial language could be moved to props
         return {
-            schema: schema,
+            schema: translator.translate(i18n.en, schema),
             values: {}
         };
     },
@@ -25,11 +29,6 @@ module.exports  = React.createClass({
         });
     },
     render: function() {
-        var languages = {
-            en: 'English',
-            fi: 'Suomi'
-        };
-
         // TODO: wire up initial language + language change -> update schema
         return (
             <div>
@@ -44,7 +43,7 @@ module.exports  = React.createClass({
                     />
                 </div>
                 <Preview data={this.state.values} />
-                <LanguageSelector languages={languages} />
+                <LanguageSelector languages={translator.parse(i18n)} />
             </div>
         );
     }

@@ -4,7 +4,7 @@ var zip = require('annozip');
 
 
 module.exports = React.createClass({
-    displayName: 'Preview',
+    displayName: 'LanguageSelector',
 
     getInitialState: function() {
         return {
@@ -24,6 +24,8 @@ module.exports = React.createClass({
         );
     },
     onClick: function(language) {
+        console.log('selected', language);
+
         this.setState({
             language: language
         });
