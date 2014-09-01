@@ -1,6 +1,5 @@
 'use strict';
 
-// TODO: inject titles
 module.exports = {
     type: 'object',
     properties: {

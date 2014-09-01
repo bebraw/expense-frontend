@@ -1,12 +1,37 @@
 'use strict';
+var deepcopy = require('deepcopy');
 var zip = require('annozip');
 
 
 function translate(i18n, schema) {
-    // inject title properties to a new schema based on i18n
-    console.log('schema', schema, 'i18n', i18n);
+    var ret = deepcopy(schema);
+
+    // XXX: assumes root is an object
+    ret.properties = _translate(i18n, ret.properties);
+
+    return ret;
 }
 exports.translate = translate;
+
+function _translate(i18n, properties) {
+    var ret = deepcopy(properties);
+
+    Object.keys(ret).forEach(function(k) {
+        var prop = ret[k];
+
+        if(prop.type === 'number' || prop.type === 'string') {
+            prop.title = i18n[k];
+        }
+        if(prop.type === 'array') {
+            ret[k].items.properties = _translate(i18n[k].properties, prop.items.properties);
+        }
+        if(prop.type === 'object') {
+            ret[k].properties = _translate(i18n[k].properties, prop.properties);
+        }
+    });
+
+    return ret;
+}
 
 function parse(i18n) {
     var names = Object.keys(i18n);
