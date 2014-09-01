@@ -136,9 +136,15 @@ article, .info {
     float: right;
 }
 
+.language-selector {
+    position: fixed;
+    top: 0;
+    right: 10em;
+}
+
 /* hide unnecessary bits on print and make sure preview is fullsized */
 @media print {
-    .fields, .handle {
+    .fields, .handle, .language-selector {
         display: none;
     }
 

@@ -5,6 +5,7 @@ var validate = require('plexus-validate');
 var Form = require('plexus-form');
 
 var schema = require('./schema');
+var LanguageSelector = require('./language_selector.jsx');
 var Preview = require('./preview.jsx');
 
 
@@ -24,6 +25,12 @@ module.exports  = React.createClass({
         });
     },
     render: function() {
+        var languages = {
+            en: 'English',
+            fi: 'Suomi'
+        };
+
+        // TODO: wire up initial language + language change -> update schema
         return (
             <div>
                 <div className="fields">
@@ -37,6 +44,7 @@ module.exports  = React.createClass({
                     />
                 </div>
                 <Preview data={this.state.values} />
+                <LanguageSelector languages={languages} />
             </div>
         );
     }
