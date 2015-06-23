@@ -90,7 +90,7 @@ function calculateServices(o) {
             name: service.name,
             amount: service.amount,
             cost: cost,
-            total: service.amount + cost
+            total: service.amount * cost
         };
     });
 
