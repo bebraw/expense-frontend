@@ -5,7 +5,7 @@
   "dependencies": {
     "annozip": "^0.2.4",
     "deepcopy": "^0.3.3",
-    "moment": "2.7.0",
+    "moment": "^2.22.1",
     "plexus-form": "0.0.13",
     "plexus-objective": "0.0.1",
     "plexus-validate": "0.0.2",
